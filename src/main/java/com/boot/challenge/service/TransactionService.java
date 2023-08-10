@@ -113,8 +113,13 @@ public class TransactionService {
         Pageable pageable = PageRequest.of(pageNo, size);
         int start = pageable.getPageNumber() * pageable.getPageSize();
         int end = Math.min(start + pageable.getPageSize(),transactionsList.size());
-        Page<Transactions> page = new PageImpl<>(transactionsList.subList(start,end));
-        result.setRecords(page.getContent());
+        if (end>=transactionsList.size()){
+            result.setRecords(null);
+        }
+        else {
+            Page<Transactions> page = new PageImpl<>(transactionsList.subList(start, end));
+            result.setRecords(page.getContent());
+        }
         return result;
     }
 }
