@@ -10,6 +10,10 @@ import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
+<<<<<<< HEAD
+=======
+import com.boot.challenge.dto.PageResponse;
+>>>>>>> lxm
 
 import java.util.List;
 
@@ -32,6 +36,7 @@ public class CustomerService {
     public List<Customer> getCustomerByGender(String gender) {
         return customerDAO.findCustomersByGender(gender);
     }
+
     public PageResponse getCustomerGenderByPagination(String gender, int pageno, int size) {
         List<Customer> customerList = getCustomerByGender(gender);
         Pageable pageable = PageRequest.of(pageno, size);
