@@ -39,4 +39,10 @@ public class TransactionController {
         //return transactionService.getTransactionsByGender(gender).subList(0,10);
         return transactionService.getTransactionsByGender(gender);
     }
+    @GetMapping("/merchant/{merchant}")
+    public List<Transactions> getTransactionsByMerchant(@PathVariable String merchant){
+        System.out.println(merchant);
+        return transactionService.getTsansactionsByMerchant(merchant);
+    }
+
 }

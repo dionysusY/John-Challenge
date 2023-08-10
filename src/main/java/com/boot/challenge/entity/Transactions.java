@@ -13,7 +13,7 @@ public class Transactions {
     long customId;
     String city;
     String state;
-    @Field("citi_population")
+    @Field("city_population")
     int cityPopulation;
     String merchant;
     String category;
