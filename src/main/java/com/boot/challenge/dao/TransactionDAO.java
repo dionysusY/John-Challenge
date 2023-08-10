@@ -14,4 +14,6 @@ public interface TransactionDAO {
 
     List<Transactions> findTransactionsByState(String state);
 
+    List<Transactions> findTransactionsByMerchant(String merchant);
+
 }

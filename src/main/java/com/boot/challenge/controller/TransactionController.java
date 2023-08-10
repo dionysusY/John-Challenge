@@ -33,4 +33,10 @@ public class TransactionController {
         return transactionService.getCustomer2TransMapByState(state);
     }
 
+    @GetMapping("/merchant/{merchant}")
+    public List<Transactions> getTransactionsByMerchant(@PathVariable String merchant){
+        System.out.println(merchant);
+        return transactionService.getTsansactionsByMerchant(merchant);
+    }
+
 }

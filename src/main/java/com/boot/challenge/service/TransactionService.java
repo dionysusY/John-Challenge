@@ -55,4 +55,8 @@ public class TransactionService {
 
         return result;
     }
+
+    public List<Transactions> getTsansactionsByMerchant(String merchant){
+        return transactionDAO.findTransactionsByMerchant(merchant);
+    }
 }
