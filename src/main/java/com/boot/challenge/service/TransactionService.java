@@ -55,4 +55,10 @@ public class TransactionService {
 
         return result;
     }
+
+    public List<Transactions> getTransactionByCategory(String category) {
+        List<Transactions> transactions = transactionDAO.findTransactionsByCategory(category);
+        return transactions;
+    }
+
 }

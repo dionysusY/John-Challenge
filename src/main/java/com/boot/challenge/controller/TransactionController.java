@@ -33,4 +33,8 @@ public class TransactionController {
         return transactionService.getCustomer2TransMapByState(state);
     }
 
+    @GetMapping("category/{category}")
+    public  List<Transactions> getTransactionByCategory(@PathVariable String category) {
+        return transactionService.getTransactionByCategory(category);
+    }
 }
