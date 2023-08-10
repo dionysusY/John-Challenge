@@ -2,20 +2,25 @@ package com.boot.challenge.entity;
 
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
+import org.springframework.data.mongodb.core.mapping.Field;
 
 @Document
 public class Transactions {
+    @Field("trans_date_trans_time")
     String transDateTransTime;
     double amt;
+    @Field("customer_id")
     long customId;
     String city;
     String state;
+    @Field("city_population")
     int cityPopulation;
     String merchant;
     String category;
     String first;
     String last;
     String gender;
+    @Field("Job")
     String job;
     String dob;
     @Id
