@@ -33,6 +33,13 @@ public class TransactionDAOImpl implements TransactionDAO {
     }
 
     @Override
+    public List<Transactions> findTransactionsByGender(String gender) {
+        Query query = new Query();
+        query.addCriteria(Criteria.where("gender").is(gender));
+        return mongoTemplate.find(query, Transactions.class);
+    }
+
+    @Override
     public List<Transactions> findTransactionsByCategory(String category){
         Query query = new Query();
         query.addCriteria(Criteria.where("category").regex(category));//模糊查询

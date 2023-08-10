@@ -56,6 +56,10 @@ public class TransactionService {
         return result;
     }
 
+    public List<Transactions> getTransactionsByGender(String gender) {
+        return transactionDAO.findTransactionsByGender(gender);
+    }
+
     public List<Transactions> getTransactionByCategory(String category) {
         List<Transactions> transactions = transactionDAO.findTransactionsByCategory(category);
         return transactions;
