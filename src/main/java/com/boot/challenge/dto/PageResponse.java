@@ -5,7 +5,7 @@ import com.boot.challenge.entity.Transactions;
 
 import java.util.List;
 
-public class TransactionsPageResponse {
+public class PageResponse {
     int totalPages;
     long totalElements;
     int noofelements ;
@@ -60,5 +60,4 @@ public class TransactionsPageResponse {
     public void setCustomers(List<Customer> customers) {
         this.customers = customers;
     }
-
 }

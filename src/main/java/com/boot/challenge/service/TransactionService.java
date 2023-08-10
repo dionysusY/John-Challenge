@@ -2,7 +2,7 @@ package com.boot.challenge.service;
 
 import com.boot.challenge.dao.CustomerDAO;
 import com.boot.challenge.dao.TransactionDAO;
-import com.boot.challenge.dto.TransactionsPageResponse;
+import com.boot.challenge.dto.PageResponse;
 import com.boot.challenge.entity.Customer;
 import com.boot.challenge.entity.Transactions;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -68,7 +68,7 @@ public class TransactionService {
     public List<Transactions> getTsansactionsByMerchant(String merchant){
         return transactionDAO.findTransactionsByMerchant(merchant);
     }
-    public TransactionsPageResponse getTransactionsGenderByPagination(String gender, int pageno, int size) {
+    public PageResponse getTransactionsGenderByPagination(String gender, int pageno, int size) {
         List<Transactions> transactionsList = getTransactionsByGender(gender);
         Pageable pageable = PageRequest.of(pageno, size);
         int start = pageable.getPageNumber() * pageable.getPageSize();
@@ -78,7 +78,7 @@ public class TransactionService {
         long totalElements = page.getTotalElements();
         int noofelements = page.getNumberOfElements();
         int pagesize = page.getSize();
-        TransactionsPageResponse response = new TransactionsPageResponse();
+        PageResponse response = new PageResponse();
         response.setTransactions(page.getContent());
         response.setNoofelements(noofelements);
         response.setPagesize(pagesize);
