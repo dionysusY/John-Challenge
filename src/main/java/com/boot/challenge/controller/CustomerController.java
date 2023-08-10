@@ -23,8 +23,8 @@ public class CustomerController {
     @Autowired
     private CustomerService customerService;
 
-    @GetMapping("/{gender}")
-    public List<Customer> getCustomerByCity(@PathVariable String gender) {
+    @GetMapping("/gender/{gender}")
+    public List<Customer> getCustomerByGender(@PathVariable String gender) {
         return customerService.getCustomerByGender(gender);
     }
 }

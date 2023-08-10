@@ -24,18 +24,19 @@ public class TransactionController {
     @Autowired
     private TransactionService transactionService;
 
-//    @GetMapping("/{city}")
-//    public Map<Customer, List<Transactions>> getCustomer2TransMapByCity(@PathVariable String city) {
-//        return transactionService.getCustomer2TransMapByCity(city);
-//    }
-//
-//    @GetMapping("/{state}")
-//    public Map<Customer, List<Transactions>> getCustomer2TransMapByState(@PathVariable String state) {
-//        return transactionService.getCustomer2TransMapByState(state);
-//    }
+    @GetMapping("/{city}")
+    public Map<Customer, List<Transactions>> getCustomer2TransMapByCity(@PathVariable String city) {
+        return transactionService.getCustomer2TransMapByCity(city);
+    }
 
-    @GetMapping("/{gender}")
-    public List<Transactions> getCustomerByGender(@PathVariable String gender) {
-        return transactionService.getTransactionsByGender(gender).subList(0,10);
+    @GetMapping("/{state}")
+    public Map<Customer, List<Transactions>> getCustomer2TransMapByState(@PathVariable String state) {
+        return transactionService.getCustomer2TransMapByState(state);
+    }
+
+    @GetMapping("gender/{gender}")
+    public List<Transactions> getTransactionsByGender(@PathVariable String gender) {
+        //return transactionService.getTransactionsByGender(gender).subList(0,10);
+        return transactionService.getTransactionsByGender(gender);
     }
 }
