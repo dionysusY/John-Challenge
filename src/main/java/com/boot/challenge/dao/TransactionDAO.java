@@ -21,4 +21,6 @@ public interface TransactionDAO {
 
     List<Transactions> findTransactionsByCategory(String category);
 
+    List<Transactions> findTransactionsByGroup(int group);
+
 }

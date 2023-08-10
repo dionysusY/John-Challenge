@@ -92,6 +92,10 @@ public class TransactionService {
         return transactionDAO.findTransactionsByAmount(sort);
     }
 
+    public List<Transactions> getTransactionsByGroup(int group){
+        return transactionDAO.findTransactionsByGroup(group);
+    }
+
     public List<Transactions> getTransactionByCategory(String category) {
         List<Transactions> transactions = transactionDAO.findTransactionsByCategory(category);
         return transactions;

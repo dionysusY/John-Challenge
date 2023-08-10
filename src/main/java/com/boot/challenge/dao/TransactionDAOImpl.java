@@ -67,4 +67,11 @@ public class TransactionDAOImpl implements TransactionDAO {
         query.addCriteria(Criteria.where("category").regex(category));//模糊查询
         return mongoTemplate.find(query, Transactions.class);
     }
+
+    @Override
+    public List<Transactions> findTransactionsByGroup(int group) {
+        Query query = new Query();
+        query.addCriteria(Criteria.where("city_population").is(group));
+        return mongoTemplate.find(query, Transactions.class);
+    }
 }
