@@ -15,6 +15,8 @@ public interface TransactionDAO {
     List<Transactions> findTransactionsByState(String state);
     List<Transactions> findTransactionsByGender(String gender);
 
+    List<Transactions> findTransactionsByMerchant(String merchant);
+
     List<Transactions> findTransactionsByCategory(String category);
 
 }

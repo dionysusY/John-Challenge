@@ -35,12 +35,18 @@ public class TransactionController {
     }
 
     @GetMapping("gender/{gender}")
-    public List<Transactions> getTransactionsByGender(@PathVariable String gender) {
-        //return transactionService.getTransactionsByGender(gender).subList(0,10);
-        return transactionService.getTransactionsByGender(gender);
+    public List<Transactions> getTransactionsByGender(@PathVariable String gender,@RequestParam int pageno,
+                                                      @RequestParam int size) {
+        return transactionService.getTransactionsGenderByPagination(gender,pageno,size).getTransactions();
     }
     @GetMapping("category/{category}")
     public  List<Transactions> getTransactionByCategory(@PathVariable String category) {
         return transactionService.getTransactionByCategory(category);
     }
+    @GetMapping("/merchant/{merchant}")
+    public List<Transactions> getTransactionsByMerchant(@PathVariable String merchant){
+        System.out.println(merchant);
+        return transactionService.getTsansactionsByMerchant(merchant);
+    }
+
 }

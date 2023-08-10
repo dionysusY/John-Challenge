@@ -40,6 +40,14 @@ public class TransactionDAOImpl implements TransactionDAO {
     }
 
     @Override
+    public List<Transactions> findTransactionsByMerchant(String merchant) {
+        Query query = new Query();
+        query.addCriteria(Criteria.where("merchant").is(merchant));
+        return mongoTemplate.find(query, Transactions.class);
+    }
+
+
+    @Override
     public List<Transactions> findTransactionsByCategory(String category){
         Query query = new Query();
         query.addCriteria(Criteria.where("category").regex(category));//模糊查询
