@@ -1,17 +1,12 @@
 package com.boot.challenge.entity;
 
 import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.mapping.Document;
 
-import java.util.Date;
-
+@Document
 public class Transactions {
-    @Id
-    private long trans_num = -1;
-
     String transDateTransTime;
-
     double amt;
-
     long customId;
     String city;
     String state;
@@ -23,6 +18,8 @@ public class Transactions {
     String gender;
     String job;
     String dob;
+    @Id
+    private long trans_num = -1;
 
     public Transactions() {
     }

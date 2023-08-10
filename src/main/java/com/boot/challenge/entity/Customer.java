@@ -1,19 +1,21 @@
 package com.boot.challenge.entity;
 
 import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.mapping.Document;
 
 import java.util.Date;
 
+@Document
 public class Customer {
 
     @Id
     private long customerID = -1;
 
-    String first;
-    String last;
-    String gender;
-    String job;
-    Date dob;
+    private String first;
+    private String last;
+    private String gender;
+    private String job;
+    private Date dob;
 
     public Customer(long customerID, String first, String last, String gender, String job, Date dob) {
         this.customerID = customerID;
