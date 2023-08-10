@@ -45,5 +45,9 @@ public class TransactionController {
         System.out.println(merchant);
         return transactionService.getTsansactionsByMerchant(merchant);
     }
+    @GetMapping("/amount")
+    public List<Transactions> getTransactionsByMerchant(@RequestParam(defaultValue = "1")int sort){
+        return transactionService.getTransactionsByAmount(sort);
+    }
 
 }

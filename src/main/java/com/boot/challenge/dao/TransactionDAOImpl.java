@@ -2,6 +2,8 @@ package com.boot.challenge.dao;
 
 import com.boot.challenge.entity.Transactions;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
 import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.data.mongodb.core.query.Criteria;
 import org.springframework.data.mongodb.core.query.Query;
@@ -44,6 +46,18 @@ public class TransactionDAOImpl implements TransactionDAO {
         Query query = new Query();
         query.addCriteria(Criteria.where("merchant").is(merchant));
         return mongoTemplate.find(query, Transactions.class);
+    }
+
+    @Override
+    public List<Transactions> findTransactionsByAmount(int sort) {
+        Query query = new Query();
+//        query.addCriteria(Criteria.where("amount"));
+        Sort orders = sort==1?Sort.by(Sort.Direction.DESC,"amt"):Sort.by(Sort.Direction.ASC,"amt");
+        PageRequest page = PageRequest.of(0,10);
+        query.with(orders);
+        query.with(page);
+        List<Transactions> list = mongoTemplate.find(query, Transactions.class);
+        return list;
     }
 
 
