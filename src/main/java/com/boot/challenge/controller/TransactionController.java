@@ -25,13 +25,13 @@ public class TransactionController {
     private TransactionService transactionService;
 
     @GetMapping("/city/{city}")
-    public List<Transactions> getTransMapByCity(@PathVariable String city) {
+    public List<Transactions> getTransactionByCity(@PathVariable String city) {
         return transactionService.getTransactionByCity(city);
     }
 
     @GetMapping("/state/{state}")
-    public List<Transactions> getTransMapByState(@PathVariable String state) {
-        return transactionService.getTransMapByState(state);
+    public List<Transactions> getTransactionByState(@PathVariable String state) {
+        return transactionService.getTransactionByState(state);
     }
 
     @GetMapping("/gender/{gender}")

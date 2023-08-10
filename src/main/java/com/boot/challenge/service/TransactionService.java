@@ -26,7 +26,7 @@ public class TransactionService {
         return transactionDAO.findTransactionsByCity(city);
     }
 
-    public List<Transactions> getTransMapByState(String state) {
+    public List<Transactions> getTransactionByState(String state) {
         return transactionDAO.findTransactionsByState(state);
     }
 
