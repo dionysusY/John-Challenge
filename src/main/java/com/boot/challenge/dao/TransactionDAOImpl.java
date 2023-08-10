@@ -31,4 +31,11 @@ public class TransactionDAOImpl implements TransactionDAO {
         query.addCriteria(Criteria.where("state").is(state));
         return mongoTemplate.find(query, Transactions.class);
     }
+
+    @Override
+    public List<Transactions> findTransactionsByGender(String gender) {
+        Query query = new Query();
+        query.addCriteria(Criteria.where("gender").is(gender));
+        return mongoTemplate.find(query, Transactions.class);
+    }
 }

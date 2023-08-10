@@ -6,6 +6,8 @@ import com.boot.challenge.entity.Customer;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 /**
  * @ccc
  * @date 2023/8/9 - 23:52
@@ -22,4 +24,8 @@ public class CustomerService {
     public Customer findCustomerById(long _id) {
         return this.customerDAO.findCustomersById(_id);
     }
+    public List<Customer> getCustomerByGender(String gender) {
+        return customerDAO.findCustomersByGender(gender);
+    }
+
 }

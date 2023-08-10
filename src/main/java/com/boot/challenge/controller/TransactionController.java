@@ -16,21 +16,26 @@ import java.util.Map;
  * @ccc
  * @date 2023/8/10 - 0:08
  */
+
 @RestController
 @RequestMapping("/transaction")
 public class TransactionController {
 
     @Autowired
-    TransactionService transactionService;
+    private TransactionService transactionService;
 
-    @GetMapping("/{city}")
-    public Map<Customer, List<Transactions>> getCustomer2TransMapByCity(@PathVariable String city) {
-        return transactionService.getCustomer2TransMapByCity(city);
+//    @GetMapping("/{city}")
+//    public Map<Customer, List<Transactions>> getCustomer2TransMapByCity(@PathVariable String city) {
+//        return transactionService.getCustomer2TransMapByCity(city);
+//    }
+//
+//    @GetMapping("/{state}")
+//    public Map<Customer, List<Transactions>> getCustomer2TransMapByState(@PathVariable String state) {
+//        return transactionService.getCustomer2TransMapByState(state);
+//    }
+
+    @GetMapping("/{gender}")
+    public List<Transactions> getCustomerByGender(@PathVariable String gender) {
+        return transactionService.getTransactionsByGender(gender).subList(0,10);
     }
-
-    @GetMapping("/{state}")
-    public Map<Customer, List<Transactions>> getCustomer2TransMapByState(@PathVariable String state) {
-        return transactionService.getCustomer2TransMapByState(state);
-    }
-
 }

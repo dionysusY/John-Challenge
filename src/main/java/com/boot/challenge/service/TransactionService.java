@@ -55,4 +55,8 @@ public class TransactionService {
 
         return result;
     }
+
+    public List<Transactions> getTransactionsByGender(String gender) {
+        return transactionDAO.findTransactionsByGender(gender);
+    }
 }
