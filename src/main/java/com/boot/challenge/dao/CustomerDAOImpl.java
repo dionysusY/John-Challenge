@@ -34,4 +34,10 @@ public class CustomerDAOImpl implements CustomerDAO {
         query.addCriteria(Criteria.where("gender").is(gender));
         return mongoTemplate.find(query, Customer.class);
     }
+
+    @Override
+    public Customer addCustomer(Customer newCustomer) {
+       Customer addCustomer = mongoTemplate.save(newCustomer);
+       return addCustomer;
+    }
 }

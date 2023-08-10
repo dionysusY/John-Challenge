@@ -1,12 +1,15 @@
 package com.boot.challenge.entity;
 
 import org.springframework.data.annotation.Id;
+import org.springframework.data.annotation.Transient;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 import java.util.Date;
 
 @Document
 public class Customer {
+    @Transient
+    public static String generateSequenceName = "customer";
 
     @Id
     private long customerID = -1;

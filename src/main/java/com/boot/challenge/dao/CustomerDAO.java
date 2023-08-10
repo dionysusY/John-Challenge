@@ -11,4 +11,6 @@ import java.util.List;
 public interface CustomerDAO {
     public Customer findCustomersById(long customer_id);
     public List<Customer> findCustomersByGender(String gender);
+
+    public Customer addCustomer(Customer newCustomer);
 }
