@@ -79,7 +79,7 @@ public class TransactionService {
         int noofelements = page.getNumberOfElements();
         int pagesize = page.getSize();
         TransactionsPageResponse response = new TransactionsPageResponse();
-        response.setEmployees(page.getContent());
+        response.setTransactions(page.getContent());
         response.setNoofelements(noofelements);
         response.setPagesize(pagesize);
         response.setTotalElements(totalElements);
