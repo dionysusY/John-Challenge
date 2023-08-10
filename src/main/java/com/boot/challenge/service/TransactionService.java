@@ -2,6 +2,7 @@ package com.boot.challenge.service;
 
 import com.boot.challenge.dao.CustomerDAO;
 import com.boot.challenge.dao.TransactionDAO;
+import com.boot.challenge.dto.PageData;
 import com.boot.challenge.dto.PageResponse;
 import com.boot.challenge.entity.Customer;
 import com.boot.challenge.entity.Transactions;
@@ -89,5 +90,31 @@ public class TransactionService {
 
     public List<Transactions> getTransactionsByAmount(int sort){
         return transactionDAO.findTransactionsByAmount(sort);
+    }
+
+    public List<Transactions> getTransactionByCategory(String category) {
+        List<Transactions> transactions = transactionDAO.findTransactionsByCategory(category);
+        return transactions;
+    }
+
+    public PageData<Transactions> getTransactionByCategoryPagination(String category, int pageNo, int size) {
+        List<Transactions> transactionsList = getTransactionByCategory(category);
+        PageData<Transactions> result = new PageData<>();
+        if (pageNo<=0){
+            pageNo = 1;
+        }
+        if (size <= 0) {
+            size = 10;
+        }
+        result.setCurrent(pageNo);
+        result.setSize(size);
+        result.setTotal(transactionsList.size());
+
+        Pageable pageable = PageRequest.of(pageNo, size);
+        int start = pageable.getPageNumber() * pageable.getPageSize();
+        int end = Math.min(start + pageable.getPageSize(),transactionsList.size());
+        Page<Transactions> page = new PageImpl<>(transactionsList.subList(start,end));
+        result.setRecords(page.getContent());
+        return result;
     }
 }

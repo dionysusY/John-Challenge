@@ -60,4 +60,11 @@ public class TransactionDAOImpl implements TransactionDAO {
         return list;
     }
 
+
+    @Override
+    public List<Transactions> findTransactionsByCategory(String category){
+        Query query = new Query();
+        query.addCriteria(Criteria.where("category").regex(category));//模糊查询
+        return mongoTemplate.find(query, Transactions.class);
+    }
 }

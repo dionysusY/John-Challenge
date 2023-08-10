@@ -19,4 +19,6 @@ public interface TransactionDAO {
 
     List<Transactions> findTransactionsByAmount(int sort);
 
+    List<Transactions> findTransactionsByCategory(String category);
+
 }

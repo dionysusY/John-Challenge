@@ -1,5 +1,6 @@
 package com.boot.challenge.controller;
 
+import com.boot.challenge.dto.PageData;
 import com.boot.challenge.entity.Customer;
 import com.boot.challenge.entity.Transactions;
 import com.boot.challenge.service.TransactionService;
@@ -35,6 +36,11 @@ public class TransactionController {
     public List<Transactions> getTransactionsByGender(@PathVariable String gender,@RequestParam int pageno,
                                                       @RequestParam int size) {
         return transactionService.getTransactionsGenderByPagination(gender,pageno,size).getTransactions();
+    }
+    @GetMapping("category/{category}")
+    public PageData<Transactions> getTransactionByCategory(@PathVariable String category, @RequestParam(defaultValue = "1") int pageNo,
+                                                           @RequestParam(defaultValue = "10") int size) {
+        return transactionService.getTransactionByCategoryPagination(category,pageNo,size);
     }
     @GetMapping("/merchant/{merchant}")
     public List<Transactions> getTransactionsByMerchant(@PathVariable String merchant){
