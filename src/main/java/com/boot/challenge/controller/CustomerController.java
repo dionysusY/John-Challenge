@@ -5,10 +5,7 @@ import com.boot.challenge.entity.Transactions;
 import com.boot.challenge.service.CustomerService;
 import com.boot.challenge.service.TransactionService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 import java.util.Map;
@@ -24,7 +21,17 @@ public class CustomerController {
     private CustomerService customerService;
 
     @GetMapping("/gender/{gender}")
-    public List<Customer> getCustomerByGender(@PathVariable String gender) {
-        return customerService.getCustomerByGender(gender);
+    public List<Customer> getCustomerByGender(@PathVariable String gender,@RequestParam(required = false,defaultValue = "0") int pageno,
+                                              @RequestParam(required = false,defaultValue = "10") int size) {
+        return customerService.getCustomerGenderByPagination(gender,pageno,size).getCustomers();
+    }
+
+    @PostMapping("/addcustomer")
+    public Customer addCustomer(@RequestParam("first") String first,
+                                @RequestParam("last") String last,
+                                @RequestParam("gender") String gender,
+                                @RequestParam("job") String job){
+        Customer addCustomer = customerService.addCustomer(first, last, gender, job);
+        return addCustomer;
     }
 }

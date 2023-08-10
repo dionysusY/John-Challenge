@@ -2,6 +2,8 @@ package com.boot.challenge.dao;
 
 import com.boot.challenge.entity.Transactions;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
 import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.data.mongodb.core.query.Criteria;
 import org.springframework.data.mongodb.core.query.Query;
@@ -46,4 +48,30 @@ public class TransactionDAOImpl implements TransactionDAO {
         return mongoTemplate.find(query, Transactions.class);
     }
 
+    @Override
+    public List<Transactions> findTransactionsByAmount(int sort) {
+        Query query = new Query();
+//        query.addCriteria(Criteria.where("amount"));
+        Sort orders = sort==1?Sort.by(Sort.Direction.DESC,"amt"):Sort.by(Sort.Direction.ASC,"amt");
+        PageRequest page = PageRequest.of(0,10);
+        query.with(orders);
+        query.with(page);
+        List<Transactions> list = mongoTemplate.find(query, Transactions.class);
+        return list;
+    }
+
+
+    @Override
+    public List<Transactions> findTransactionsByCategory(String category){
+        Query query = new Query();
+        query.addCriteria(Criteria.where("category").regex(category));//模糊查询
+        return mongoTemplate.find(query, Transactions.class);
+    }
+
+    @Override
+    public List<Transactions> findTransactionsByGroup(int group) {
+        Query query = new Query();
+        query.addCriteria(Criteria.where("city_population").is(group));
+        return mongoTemplate.find(query, Transactions.class);
+    }
 }
