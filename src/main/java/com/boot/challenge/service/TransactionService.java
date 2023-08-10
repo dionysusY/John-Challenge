@@ -86,4 +86,8 @@ public class TransactionService {
         response.setTotalPages(totalPages);
         return response;
     }
+
+    public List<Transactions> getTransactionsByAmount(int sort){
+        return transactionDAO.findTransactionsByAmount(sort);
+    }
 }
