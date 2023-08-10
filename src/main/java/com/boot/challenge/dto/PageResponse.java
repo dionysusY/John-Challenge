@@ -1,15 +1,18 @@
 package com.boot.challenge.dto;
 
+import com.boot.challenge.entity.Customer;
 import com.boot.challenge.entity.Transactions;
 
 import java.util.List;
 
-public class TransactionsPageResponse {
+public class PageResponse {
     int totalPages;
     long totalElements;
     int noofelements ;
     int pagesize ;
     List<Transactions> transactions;
+
+    List<Customer> customers;
 
     public int getTotalPages() {
         return totalPages;
@@ -47,7 +50,14 @@ public class TransactionsPageResponse {
         return transactions;
     }
 
-    public void setEmployees(List<Transactions> employees) {
-        this.transactions = employees;
+    public void setTransactions(List<Transactions> transactions) {
+        this.transactions = transactions;
+    }
+    public List<Customer> getCustomers() {
+        return customers;
+    }
+
+    public void setCustomers(List<Customer> customers) {
+        this.customers = customers;
     }
 }

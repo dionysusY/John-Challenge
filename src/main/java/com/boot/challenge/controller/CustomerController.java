@@ -21,8 +21,9 @@ public class CustomerController {
     private CustomerService customerService;
 
     @GetMapping("/gender/{gender}")
-    public List<Customer> getCustomerByGender(@PathVariable String gender) {
-        return customerService.getCustomerByGender(gender);
+    public List<Customer> getCustomerByGender(@PathVariable String gender,@RequestParam(required = false,defaultValue = "0") int pageno,
+                                              @RequestParam(required = false,defaultValue = "10") int size) {
+        return customerService.getCustomerGenderByPagination(gender,pageno,size).getCustomers();
     }
 
     @PostMapping("/addcustomer")
