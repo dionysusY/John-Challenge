@@ -13,7 +13,7 @@ import org.springframework.data.mongodb.core.MongoTemplate;
 @Configuration
 public class MongoConfig {
 
-    private final static String REMOTE_DB = "mongodb://81.68.219.146:27017";
+    private final static String REMOTE_DB = "mongodb://localhost:27017";
 
     @Bean
     public MongoClient mongoClient() {
