@@ -48,8 +48,9 @@ public class TransactionController {
         return transactionService.getTsansactionsByMerchant(merchant);
     }
     @GetMapping("/amount")
-    public List<Transactions> getTransactionsByMerchant(@RequestParam(defaultValue = "1")int sort){
-        return transactionService.getTransactionsByAmount(sort);
+    public List<Transactions> getTransactionsByAmount(@RequestParam(defaultValue = "1")int sort,@RequestParam(defaultValue = "0")int pageNo,
+                                                      @RequestParam(defaultValue = "10") int size){
+        return transactionService.getTransactionsByAmount(sort,pageNo,size);
     }
 
     @GetMapping("/population_groups/{population}")

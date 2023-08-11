@@ -62,8 +62,8 @@ public class TransactionService {
         return response;
     }
 
-    public List<Transactions> getTransactionsByAmount(int sort){
-        return transactionDAO.findTransactionsByAmount(sort);
+    public List<Transactions> getTransactionsByAmount(int sort,int pageNo,int size){
+        return transactionDAO.findTransactionsByAmount(sort,pageNo,size);
     }
 
     public List<Transactions> getTransactionsByGroup(int group){
