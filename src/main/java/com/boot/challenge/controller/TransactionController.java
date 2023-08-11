@@ -46,9 +46,11 @@ public class TransactionController {
         return transactionService.getTransactionByCategoryPagination(category,pageNo,size);
     }
     @GetMapping("/merchant/{merchant}")
-    public List<Transactions> getTransactionsByMerchant(@PathVariable String merchant){
+    public PageData<Transactions> getTransactionsByMerchant(@PathVariable String merchant,
+                                                        @RequestParam(defaultValue = "0")int pageNo,
+                                                        @RequestParam(defaultValue = "10") int size){
         System.out.println(merchant);
-        return transactionService.getTsansactionsByMerchant(merchant);
+        return transactionService.getTransactionsByMerchantPagination(merchant, pageNo, size);
     }
     @GetMapping("/amount")
     public List<Transactions> getTransactionsByAmount(@RequestParam(defaultValue = "1")int sort,@RequestParam(defaultValue = "0")int pageNo,
