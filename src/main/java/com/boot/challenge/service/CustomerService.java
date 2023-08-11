@@ -47,6 +47,12 @@ public class CustomerService {
     }
 
     public PageResponse getCustomerGenderByPagination(String gender, int pageno, int size) {
+        if(pageno < 0){
+            pageno = 0;
+        }
+        if(size <= 0){
+            size = 10;
+        }
         List<Customer> customerList = getCustomerByGender(gender);
         Pageable pageable = PageRequest.of(pageno, size);
         int start = pageable.getPageNumber() * pageable.getPageSize();
