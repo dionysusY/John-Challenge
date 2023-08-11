@@ -101,8 +101,8 @@ public class TransactionService {
     public PageData<Transactions> getTransactionByCategoryPagination(String category, int pageNo, int size) {
         List<Transactions> transactionsList = getTransactionByCategory(category);
         PageData<Transactions> result = new PageData<>();
-        if (pageNo<=0){
-            pageNo = 1;
+        if (pageNo<0){
+            pageNo = 0;
         }
         if (size <= 0) {
             size = 10;
