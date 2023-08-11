@@ -34,7 +34,7 @@ public class PageData<T extends Serializable> implements Serializable {
      * 构造函数
      */
     public PageData() {
-        this(1, 10, 0);
+        this(0, 10, 0);
     }
 
     /**
