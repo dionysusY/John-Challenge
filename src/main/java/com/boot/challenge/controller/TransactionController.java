@@ -38,7 +38,7 @@ public class TransactionController {
         return transactionService.getTransactionsGenderByPagination(gender,pageno,size).getTransactions();
     }
     @GetMapping("category/{category}")
-    public PageData<Transactions> getTransactionByCategory(@PathVariable String category, @RequestParam(defaultValue = "1") int pageNo,
+    public PageData<Transactions> getTransactionByCategory(@PathVariable String category, @RequestParam(defaultValue = "0") int pageNo,
                                                            @RequestParam(defaultValue = "10") int size) {
         return transactionService.getTransactionByCategoryPagination(category,pageNo,size);
     }
@@ -48,12 +48,14 @@ public class TransactionController {
         return transactionService.getTsansactionsByMerchant(merchant);
     }
     @GetMapping("/amount")
-    public List<Transactions> getTransactionsByMerchant(@RequestParam(defaultValue = "1")int sort){
-        return transactionService.getTransactionsByAmount(sort);
+    public List<Transactions> getTransactionsByAmount(@RequestParam(defaultValue = "1")int sort,@RequestParam(defaultValue = "0")int pageNo,
+                                                      @RequestParam(defaultValue = "10") int size){
+        return transactionService.getTransactionsByAmount(sort,pageNo,size);
     }
 
-    @GetMapping("/population_groups/{population}")
-    public List<Transactions> getTransactionsByGroup(@RequestParam(defaultValue = "0") int group){
-        return transactionService.getTransactionsByGroup(group);
+    @GetMapping("/population_groups")
+    public PageData<Transactions> getTransactionsByGroup(@RequestParam(defaultValue = "0") int group, @RequestParam(defaultValue = "1") int pageNum,
+                                                     @RequestParam(defaultValue = "10") int size){
+        return transactionService.getTransactionsByGroup(group, pageNum, size);
     }
 }

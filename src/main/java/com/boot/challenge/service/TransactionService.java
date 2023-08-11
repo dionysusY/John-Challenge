@@ -62,12 +62,35 @@ public class TransactionService {
         return response;
     }
 
-    public List<Transactions> getTransactionsByAmount(int sort){
-        return transactionDAO.findTransactionsByAmount(sort);
+    public List<Transactions> getTransactionsByAmount(int sort,int pageNo,int size){
+        return transactionDAO.findTransactionsByAmount(sort,pageNo,size);
     }
 
-    public List<Transactions> getTransactionsByGroup(int group){
-        return transactionDAO.findTransactionsByGroup(group);
+    public PageData<Transactions> getTransactionsByGroup(int group, int pageNum, int size) {
+        List<Transactions> transactionsList = transactionDAO.findTransactionsByGroup(group);
+        PageData<Transactions> result = new PageData<>();
+        if (pageNum <= 0){
+            pageNum = 1;
+        }
+        if (size <= 0) {
+            size = 10;
+        }
+        result.setCurrent(pageNum);
+        result.setSize(size);
+        result.setTotal(transactionsList.size());
+
+        pageNum -= 1;
+        Pageable pageable = PageRequest.of(pageNum, size);
+        int start = pageable.getPageNumber() * pageable.getPageSize();
+        int end = Math.min(start + pageable.getPageSize(), transactionsList.size());
+        if (start > end){
+            result.setRecords(null);
+        }
+        else {
+            Page<Transactions> page = new PageImpl<>(transactionsList.subList(start, end));
+            result.setRecords(page.getContent());
+        }
+        return result;
     }
 
     public List<Transactions> getTransactionByCategory(String category) {
@@ -78,8 +101,8 @@ public class TransactionService {
     public PageData<Transactions> getTransactionByCategoryPagination(String category, int pageNo, int size) {
         List<Transactions> transactionsList = getTransactionByCategory(category);
         PageData<Transactions> result = new PageData<>();
-        if (pageNo<=0){
-            pageNo = 1;
+        if (pageNo<0){
+            pageNo = 0;
         }
         if (size <= 0) {
             size = 10;
