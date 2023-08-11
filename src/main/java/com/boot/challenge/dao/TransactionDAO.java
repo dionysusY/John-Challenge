@@ -17,7 +17,7 @@ public interface TransactionDAO {
 
     List<Transactions> findTransactionsByMerchant(String merchant);
 
-    List<Transactions> findTransactionsByAmount(int sort);
+    List<Transactions> findTransactionsByAmount(int sort,int pageNo,int size);
 
     List<Transactions> findTransactionsByCategory(String category);
 

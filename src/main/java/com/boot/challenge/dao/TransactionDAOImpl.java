@@ -49,11 +49,11 @@ public class TransactionDAOImpl implements TransactionDAO {
     }
 
     @Override
-    public List<Transactions> findTransactionsByAmount(int sort) {
+    public List<Transactions> findTransactionsByAmount(int sort,int pageNo,int size) {
         Query query = new Query();
 //        query.addCriteria(Criteria.where("amount"));
         Sort orders = sort==1?Sort.by(Sort.Direction.DESC,"amt"):Sort.by(Sort.Direction.ASC,"amt");
-        PageRequest page = PageRequest.of(0,10);
+        PageRequest page = PageRequest.of(pageNo,size);
         query.with(orders);
         query.with(page);
         List<Transactions> list = mongoTemplate.find(query, Transactions.class);
