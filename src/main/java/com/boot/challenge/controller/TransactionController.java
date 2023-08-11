@@ -23,14 +23,17 @@ public class TransactionController {
     private TransactionService transactionService;
 
     @GetMapping("/city/{city}")
-    public List<Transactions> getTransactionByCity(@PathVariable String city) {
-        return transactionService.getTransactionByCity(city);
+    public PageData<Transactions> getTransactionByCity(@PathVariable String city, @RequestParam(defaultValue = "0") int pageNo,
+                                                   @RequestParam(defaultValue = "10") int size) {
+        return transactionService.getTransactionByCityPagination(city,pageNo,size);
     }
 
     @GetMapping("/state/{state}")
-    public List<Transactions> getTransactionByState(@PathVariable String state) {
-        return transactionService.getTransactionByState(state);
+    public PageData<Transactions> getTransactionByState(@PathVariable String state, @RequestParam(defaultValue = "0") int pageNo,
+                                                        @RequestParam(defaultValue = "10") int size) {
+        return transactionService.getTransactionByStatePagination(state,pageNo,size);
     }
+
 
     @GetMapping("gender/{gender}")
     public List<Transactions> getTransactionsByGender(@PathVariable String gender,@RequestParam int pageno,
