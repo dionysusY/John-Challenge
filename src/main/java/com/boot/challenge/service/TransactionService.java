@@ -66,8 +66,31 @@ public class TransactionService {
         return transactionDAO.findTransactionsByAmount(sort,pageNo,size);
     }
 
-    public List<Transactions> getTransactionsByGroup(int group){
-        return transactionDAO.findTransactionsByGroup(group);
+    public PageData<Transactions> getTransactionsByGroup(int group, int pageNum, int size) {
+        List<Transactions> transactionsList = transactionDAO.findTransactionsByGroup(group);
+        PageData<Transactions> result = new PageData<>();
+        if (pageNum <= 0){
+            pageNum = 1;
+        }
+        if (size <= 0) {
+            size = 10;
+        }
+        result.setCurrent(pageNum);
+        result.setSize(size);
+        result.setTotal(transactionsList.size());
+
+        pageNum -= 1;
+        Pageable pageable = PageRequest.of(pageNum, size);
+        int start = pageable.getPageNumber() * pageable.getPageSize();
+        int end = Math.min(start + pageable.getPageSize(), transactionsList.size());
+        if (start > end){
+            result.setRecords(null);
+        }
+        else {
+            Page<Transactions> page = new PageImpl<>(transactionsList.subList(start, end));
+            result.setRecords(page.getContent());
+        }
+        return result;
     }
 
     public List<Transactions> getTransactionByCategory(String category) {

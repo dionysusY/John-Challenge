@@ -53,8 +53,9 @@ public class TransactionController {
         return transactionService.getTransactionsByAmount(sort,pageNo,size);
     }
 
-    @GetMapping("/population_groups/{population}")
-    public List<Transactions> getTransactionsByGroup(@RequestParam(defaultValue = "0") int group){
-        return transactionService.getTransactionsByGroup(group);
+    @GetMapping("/population_groups")
+    public PageData<Transactions> getTransactionsByGroup(@RequestParam(defaultValue = "0") int group, @RequestParam(defaultValue = "1") int pageNum,
+                                                     @RequestParam(defaultValue = "10") int size){
+        return transactionService.getTransactionsByGroup(group, pageNum, size);
     }
 }
