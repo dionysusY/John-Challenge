@@ -36,8 +36,8 @@ public class TransactionController {
 
 
     @GetMapping("gender/{gender}")
-    public List<Transactions> getTransactionsByGender(@PathVariable String gender,@RequestParam int pageno,
-                                                      @RequestParam int size) {
+    public List<Transactions> getTransactionsByGender(@PathVariable String gender,@RequestParam(defaultValue = "0") int pageno,
+                                                      @RequestParam(defaultValue = "10") int size) {
         return transactionService.getTransactionsGenderByPagination(gender,pageno,size).getTransactions();
     }
     @GetMapping("category/{category}")
