@@ -13,4 +13,8 @@ public interface CustomerDAO {
     public List<Customer> findCustomersByGender(String gender);
 
     public Customer addCustomer(Customer newCustomer);
+
+    public  Customer findCustomersByName(String first,String last);
+
+    public boolean updateCustomerValidById(long customer_id,int valid);
 }

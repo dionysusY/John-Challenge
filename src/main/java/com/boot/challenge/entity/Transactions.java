@@ -9,29 +9,31 @@ import java.io.Serializable;
 @Document
 public class Transactions implements Serializable {
     @Field("trans_date_trans_time")
-    String transDateTransTime;
-    double amt;
+    private String transDateTransTime;
+    private double amt;
     @Field("customer_id")
-    long customId;
-    String city;
-    String state;
+    private long customId;
+    private String city;
+    private String state;
     @Field("city_population")
-    int cityPopulation;
-    String merchant;
-    String category;
-    String first;
-    String last;
-    String gender;
+    private int cityPopulation;
+    private String merchant;
+    private String category;
+    private String first;
+    private String last;
+    private String gender;
     @Field("Job")
-    String job;
-    String dob;
+    private String job;
+    private String dob;
     @Id
     private long trans_num = -1;
+
+    private int valid;
 
     public Transactions() {
     }
 
-    public Transactions(String transDateTransTime, double amt, long customId, String city, String state, int cityPopulation, String merchant, String category, String first, String last, String gender, String job, String dob) {
+    public Transactions(String transDateTransTime, double amt, long customId, String city, String state, int cityPopulation, String merchant, String category, String first, String last, String gender, String job, String dob,int valid) {
         this.transDateTransTime = transDateTransTime;
         this.amt = amt;
         this.customId = customId;
@@ -45,6 +47,7 @@ public class Transactions implements Serializable {
         this.gender = gender;
         this.job = job;
         this.dob = dob;
+        this.valid = valid;
     }
 
     public long getTrans_num() {
@@ -159,6 +162,14 @@ public class Transactions implements Serializable {
         this.dob = dob;
     }
 
+    public int getValid() {
+        return valid;
+    }
+
+    public void setValid(int valid) {
+        this.valid = valid;
+    }
+
     @Override
     public String toString() {
         return "Transactions{" +
@@ -176,6 +187,7 @@ public class Transactions implements Serializable {
                 ", gender='" + gender + '\'' +
                 ", job='" + job + '\'' +
                 ", dob='" + dob + '\'' +
+                ", valid='" + valid + '\'' +
                 '}';
     }
 }
