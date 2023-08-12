@@ -34,4 +34,11 @@ public class CustomerController {
         Customer addCustomer = customerService.addCustomer(first, last, gender, job);
         return addCustomer;
     }
+
+    @DeleteMapping("/deletecustomer")
+    public boolean deleteCustomer(@RequestParam("first") String first,
+                                  @RequestParam("last") String last){
+        boolean flag = customerService.deleteCustomer(first,last);
+        return flag;
+    }
 }
