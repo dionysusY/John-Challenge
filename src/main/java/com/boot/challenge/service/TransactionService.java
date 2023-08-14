@@ -40,9 +40,37 @@ public class TransactionService {
         return transactionDAO.findTransactionsByGender(gender);
     }
 
-    public List<Transactions> getTsansactionsByMerchant(String merchant){
+    public List<Transactions> getTransactionsByMerchant(String merchant){
         return transactionDAO.findTransactionsByMerchant(merchant);
     }
+
+    public PageData<Transactions> getTransactionsByMerchantPagination(String merchant, int pageNum, int size){
+        List<Transactions> transactionsList = transactionDAO.findTransactionsByMerchant(merchant);
+        PageData<Transactions> result = new PageData<>();
+        if (pageNum <= 0){
+            pageNum = 1;
+        }
+        if (size <= 0) {
+            size = 10;
+        }
+        result.setCurrent(pageNum);
+        result.setSize(size);
+        result.setTotal(transactionsList.size());
+
+        pageNum -= 1;
+        Pageable pageable = PageRequest.of(pageNum, size);
+        int start = pageable.getPageNumber() * pageable.getPageSize();
+        int end = Math.min(start + pageable.getPageSize(), transactionsList.size());
+        if (start > end){
+            result.setRecords(null);
+        }
+        else {
+            Page<Transactions> page = new PageImpl<>(transactionsList.subList(start, end));
+            result.setRecords(page.getContent());
+        }
+        return result;
+    }
+
     public PageResponse getTransactionsGenderByPagination(String gender, int pageno, int size) {
         if (pageno < 0) {
             pageno = 0;
