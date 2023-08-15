@@ -17,4 +17,6 @@ public interface CustomerDAO {
     public  Customer findCustomersByName(String first,String last);
 
     public boolean updateCustomerValidById(long customer_id,int valid);
+
+    public List<Customer> findAllCustomer();
 }
