@@ -5,6 +5,8 @@ import com.boot.challenge.dao.DatabaseSequenceRepository;
 import com.boot.challenge.dao.TransactionDAO;
 import com.boot.challenge.dto.PageResponse;
 import com.boot.challenge.entity.Customer;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
@@ -23,6 +25,7 @@ import java.util.List;
 @Service
 public class CustomerService {
 
+    private static Logger logger = LoggerFactory.getLogger(CustomerService.class);
     @Autowired
     private CustomerDAO customerDAO;
 
@@ -47,6 +50,12 @@ public class CustomerService {
     }
 
     public PageResponse getCustomerGenderByPagination(String gender, int pageno, int size) {
+        if(pageno < 0){
+            pageno = 0;
+        }
+        if(size <= 0){
+            size = 10;
+        }
         List<Customer> customerList = getCustomerByGender(gender);
         Pageable pageable = PageRequest.of(pageno, size);
         int start = pageable.getPageNumber() * pageable.getPageSize();
@@ -63,6 +72,19 @@ public class CustomerService {
         response.setTotalElements(totalElements);
         response.setTotalPages(totalPages);
         return response;
+    }
+
+    public boolean deleteCustomer(String first,String last){
+        Customer customer = customerDAO.findCustomersByName(first,last);
+        try{
+            boolean result1 = customerDAO.updateCustomerValidById(customer.getCustomerID(),0);
+            boolean result2 = false;
+            if(result1) result2 = transactionDAO.updateTransactionValidByCustomerId(customer.getCustomerID(),0);
+            return result2;
+        }catch (Exception e){
+            logger.info("delete a customer failed, error={}", e.toString());
+            return false;
+        }
     }
 
 }

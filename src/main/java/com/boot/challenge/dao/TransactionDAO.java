@@ -23,4 +23,6 @@ public interface TransactionDAO {
 
     List<Transactions> findTransactionsByGroup(int group);
 
+    boolean updateTransactionValidByCustomerId(long customer_id,int valid);
+
 }

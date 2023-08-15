@@ -20,13 +20,16 @@ public class Customer {
     private String job;
     private Date dob;
 
-    public Customer(long customerID, String first, String last, String gender, String job, Date dob) {
+    private int valid;
+
+    public Customer(long customerID, String first, String last, String gender, String job, Date dob,int valid) {
         this.customerID = customerID;
         this.first = first;
         this.last = last;
         this.gender = gender;
         this.job = job;
         this.dob = dob;
+        this.valid = valid;
     }
 
     public Customer(String first, String last, String gender, String job, Date dob) {
@@ -38,6 +41,14 @@ public class Customer {
     }
 
     public Customer() {
+    }
+
+    public int getValid() {
+        return valid;
+    }
+
+    public void setValid(int valid) {
+        this.valid = valid;
     }
 
     public long getCustomerID() {
