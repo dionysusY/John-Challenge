@@ -1,5 +1,6 @@
 package com.boot.challenge.controller;
 
+import com.boot.challenge.dto.PageData;
 import com.boot.challenge.entity.Customer;
 import com.boot.challenge.entity.Transactions;
 import com.boot.challenge.service.CustomerService;
@@ -19,6 +20,12 @@ import java.util.Map;
 public class CustomerController {
     @Autowired
     private CustomerService customerService;
+
+    @GetMapping("/")
+    public PageData<Customer> getAllCustomer(@RequestParam(required = false, defaultValue = "0") int pageno,
+                                             @RequestParam(required = false, defaultValue = "10")int size){
+        return customerService.getCustomerPagination(pageno, size);
+    }
 
     @GetMapping("/gender/{gender}")
     public List<Customer> getCustomerByGender(@PathVariable String gender,@RequestParam(required = false,defaultValue = "0") int pageno,

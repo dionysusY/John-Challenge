@@ -62,4 +62,8 @@ public class CustomerDAOImpl implements CustomerDAO {
         System.out.println(updateResult);
         return true;
     }
+
+    public List<Customer> findAllCustomer(){
+        return mongoTemplate.findAll(Customer.class);
+    }
 }

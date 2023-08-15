@@ -3,8 +3,10 @@ package com.boot.challenge.service;
 import com.boot.challenge.dao.CustomerDAO;
 import com.boot.challenge.dao.DatabaseSequenceRepository;
 import com.boot.challenge.dao.TransactionDAO;
+import com.boot.challenge.dto.PageData;
 import com.boot.challenge.dto.PageResponse;
 import com.boot.challenge.entity.Customer;
+import com.boot.challenge.entity.Transactions;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -85,6 +87,33 @@ public class CustomerService {
             logger.info("delete a customer failed, error={}", e.toString());
             return false;
         }
+    }
+
+    public PageData<Customer> getCustomerPagination(int pageNum, int size){
+        List<Customer> CustomerList = customerDAO.findAllCustomer();
+        PageData<Customer> result = new PageData<Customer>();
+        if (pageNum <= 0){
+            pageNum = 1;
+        }
+        if (size <= 0) {
+            size = 10;
+        }
+        result.setCurrent(pageNum);
+        result.setSize(size);
+        result.setTotal(CustomerList.size());
+
+        pageNum -= 1;
+        Pageable pageable = PageRequest.of(pageNum, size);
+        int start = pageable.getPageNumber() * pageable.getPageSize();
+        int end = Math.min(start + pageable.getPageSize(), CustomerList.size());
+        if (start > end){
+            result.setRecords(null);
+        }
+        else {
+            Page<Customer> page = new PageImpl<>(CustomerList.subList(start, end));
+            result.setRecords(page.getContent());
+        }
+        return result;
     }
 
 }
