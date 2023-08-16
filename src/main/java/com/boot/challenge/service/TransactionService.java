@@ -1,9 +1,7 @@
 package com.boot.challenge.service;
 
 import com.boot.challenge.dao.TransactionDAO;
-import com.boot.challenge.dto.MerchantAmt;
-import com.boot.challenge.dto.PageData;
-import com.boot.challenge.dto.PageResponse;
+import com.boot.challenge.dto.*;
 import com.boot.challenge.entity.Transactions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -210,4 +208,11 @@ public class TransactionService {
         return transactionDAO.findAmtByMerchant();
     }
 
+    public List<StateAmt> getAmtByState(){
+        return transactionDAO.findAmtByState();
+    }
+
+    public List<CityAmt> getAmtByCity(){
+        return transactionDAO.findAmtByCity();
+    }
 }
