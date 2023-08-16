@@ -2,6 +2,7 @@ package com.boot.challenge.controller;
 
 import com.boot.challenge.dao.TransactionDAO;
 import com.boot.challenge.dto.CityAmt;
+import com.boot.challenge.dto.GenderAmt;
 import com.boot.challenge.dto.MerchantAmt;
 import com.boot.challenge.dto.StateAmt;
 import com.boot.challenge.service.TransactionService;
@@ -34,6 +35,10 @@ public class StatisticsController {
     public List<CityAmt> getAmtByCity(){
         return transactionService.getAmtByCity();
     }
-    
 
+
+    @GetMapping("/amtbygender")
+    public List<GenderAmt> getAmtByGender(){
+        return transactionService.getAmtByGender();
+    }
 }

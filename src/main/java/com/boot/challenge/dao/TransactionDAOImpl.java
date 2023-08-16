@@ -1,6 +1,7 @@
 package com.boot.challenge.dao;
 
 import com.boot.challenge.dto.CityAmt;
+import com.boot.challenge.dto.GenderAmt;
 import com.boot.challenge.dto.MerchantAmt;
 import com.boot.challenge.dto.StateAmt;
 import com.boot.challenge.entity.Transactions;
@@ -125,6 +126,18 @@ public class TransactionDAOImpl implements TransactionDAO {
         Aggregation aggregation = newAggregation(allCitys, groupByCountrySumSales,sortBySalesDesc, limit(20), includes);
         AggregationResults<CityAmt> groupResults = mongoTemplate.aggregate(aggregation, "transactions", CityAmt.class);
         List<CityAmt> result = groupResults.getMappedResults();
+        return result;
+    }
+
+    @Override
+    public List<GenderAmt> findAmtByGender() {
+        MatchOperation allMerchants = match(new Criteria("gender").exists(true));
+        GroupOperation groupByGenderSumAmt = group("gender").sum("amt").as("total_amt");
+        SortOperation sortBySalesDesc = sort(Sort.by(Sort.Direction.DESC,"total_amt"));
+        ProjectionOperation includes = project("total_amt").and("gender").previousOperation();
+        Aggregation aggregation = newAggregation(allMerchants, groupByGenderSumAmt,sortBySalesDesc, includes);
+        AggregationResults<GenderAmt> groupResults = mongoTemplate.aggregate(aggregation, "transactions", GenderAmt.class);
+        List<GenderAmt> result = groupResults.getMappedResults();
         return result;
     }
 }
