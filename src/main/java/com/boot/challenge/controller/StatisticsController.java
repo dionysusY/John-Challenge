@@ -2,6 +2,7 @@ package com.boot.challenge.controller;
 
 import com.boot.challenge.dao.TransactionDAO;
 import com.boot.challenge.dto.MerchantAmt;
+import com.boot.challenge.dto.CategoryAmt;
 import com.boot.challenge.service.TransactionService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -23,4 +24,8 @@ public class StatisticsController {
         return transactionService.getAmtByMerchant();
     }
 
+    @GetMapping("/amtByCategory")
+    public List<CategoryAmt> getAmtByCategory(){
+        return transactionService.getAmtByCategory();
+    }
 }

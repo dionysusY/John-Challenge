@@ -1,6 +1,7 @@
 package com.boot.challenge.service;
 
 import com.boot.challenge.dao.TransactionDAO;
+import com.boot.challenge.dto.CategoryAmt;
 import com.boot.challenge.dto.MerchantAmt;
 import com.boot.challenge.dto.PageData;
 import com.boot.challenge.dto.PageResponse;
@@ -210,4 +211,7 @@ public class TransactionService {
         return transactionDAO.findAmtByMerchant();
     }
 
+    public List<CategoryAmt> getAmtByCategory(){
+        return transactionDAO.findAmtByCategory();
+    }
 }
