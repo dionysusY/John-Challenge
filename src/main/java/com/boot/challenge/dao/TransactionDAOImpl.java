@@ -1,6 +1,9 @@
 package com.boot.challenge.dao;
 
+import com.boot.challenge.dto.CityAmt;
+import com.boot.challenge.dto.GenderAmt;
 import com.boot.challenge.dto.MerchantAmt;
+import com.boot.challenge.dto.StateAmt;
 import com.boot.challenge.entity.Transactions;
 import com.mongodb.client.result.UpdateResult;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -99,6 +102,42 @@ public class TransactionDAOImpl implements TransactionDAO {
         Aggregation aggregation = newAggregation(allMerchants, groupByCountrySumSales,sortBySalesDesc, limit(20), includes);
         AggregationResults<MerchantAmt> groupResults = mongoTemplate.aggregate(aggregation, "transactions", MerchantAmt.class);
         List<MerchantAmt> result = groupResults.getMappedResults();
+        return result;
+    }
+
+    @Override
+    public List<StateAmt> findAmtByState() {
+        MatchOperation allStates = match(new Criteria("state").exists(true));
+        GroupOperation groupByCountrySumSales = group("state").sum("amt").as("total_amt");
+        SortOperation sortBySalesDesc = sort(Sort.by(Sort.Direction.DESC,"total_amt"));
+        ProjectionOperation includes = project("total_amt").and("state").previousOperation();
+        Aggregation aggregation = newAggregation(allStates, groupByCountrySumSales,sortBySalesDesc, limit(20), includes);
+        AggregationResults<StateAmt> groupResults = mongoTemplate.aggregate(aggregation, "transactions", StateAmt.class);
+        List<StateAmt> result = groupResults.getMappedResults();
+        return result;
+    }
+
+    @Override
+    public List<CityAmt> findAmtByCity() {
+        MatchOperation allCitys = match(new Criteria("city").exists(true));
+        GroupOperation groupByCountrySumSales = group("city").sum("amt").as("total_amt");
+        SortOperation sortBySalesDesc = sort(Sort.by(Sort.Direction.DESC,"total_amt"));
+        ProjectionOperation includes = project("total_amt").and("city").previousOperation();
+        Aggregation aggregation = newAggregation(allCitys, groupByCountrySumSales,sortBySalesDesc, limit(20), includes);
+        AggregationResults<CityAmt> groupResults = mongoTemplate.aggregate(aggregation, "transactions", CityAmt.class);
+        List<CityAmt> result = groupResults.getMappedResults();
+        return result;
+    }
+
+    @Override
+    public List<GenderAmt> findAmtByGender() {
+        MatchOperation allMerchants = match(new Criteria("gender").exists(true));
+        GroupOperation groupByGenderSumAmt = group("gender").sum("amt").as("total_amt");
+        SortOperation sortBySalesDesc = sort(Sort.by(Sort.Direction.DESC,"total_amt"));
+        ProjectionOperation includes = project("total_amt").and("gender").previousOperation();
+        Aggregation aggregation = newAggregation(allMerchants, groupByGenderSumAmt,sortBySalesDesc, includes);
+        AggregationResults<GenderAmt> groupResults = mongoTemplate.aggregate(aggregation, "transactions", GenderAmt.class);
+        List<GenderAmt> result = groupResults.getMappedResults();
         return result;
     }
 }
