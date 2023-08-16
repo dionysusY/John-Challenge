@@ -172,20 +172,15 @@ public class TransactionService {
         Pageable pageable = PageRequest.of(pageNo, size);
         int start = pageable.getPageNumber() * pageable.getPageSize();
         int end = Math.min(start + pageable.getPageSize(),transactionsList.size());
-        if (end>=transactionsList.size()){
-            result.setRecords(null);
-        }
-        else {
-            Page<Transactions> page = new PageImpl<>(transactionsList.subList(start, end));
-            result.setRecords(page.getContent());
-        }
+        Page<Transactions> page = new PageImpl<>(transactionsList.subList(start, end));
+        result.setRecords(page.getContent());
         return result;
     }
 
     public PageData<Transactions> getTransactionByStatePagination(String state, int pageNo, int size) {
         List<Transactions> transactionsList = getTransactionByState(state);
         PageData<Transactions> result = new PageData<>();
-        if (pageNo<0){
+        if (pageNo < 0){
             pageNo = 0;
         }
         if (size <= 0) {
@@ -198,13 +193,9 @@ public class TransactionService {
         Pageable pageable = PageRequest.of(pageNo, size);
         int start = pageable.getPageNumber() * pageable.getPageSize();
         int end = Math.min(start + pageable.getPageSize(),transactionsList.size());
-        if (end>=transactionsList.size()){
-            result.setRecords(null);
-        }
-        else {
-            Page<Transactions> page = new PageImpl<>(transactionsList.subList(start, end));
-            result.setRecords(page.getContent());
-        }
+        System.out.println("start,end: " + start + " " + end);
+        Page<Transactions> page = new PageImpl<>(transactionsList.subList(start, end));
+        result.setRecords(page.getContent());
         return result;
     }
 
