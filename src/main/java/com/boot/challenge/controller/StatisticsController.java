@@ -1,8 +1,12 @@
 package com.boot.challenge.controller;
 
 import com.boot.challenge.dao.TransactionDAO;
+import com.boot.challenge.dto.CityAmt;
 import com.boot.challenge.dto.GenderAmt;
 import com.boot.challenge.dto.MerchantAmt;
+import com.boot.challenge.dto.CategoryAmt;
+import com.boot.challenge.dto.StateAmt;
+import com.boot.challenge.dto.*;
 import com.boot.challenge.service.TransactionService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -24,8 +28,28 @@ public class StatisticsController {
         return transactionService.getAmtByMerchant();
     }
 
+    @GetMapping("/amtbystate")
+    public List<StateAmt> getAmtByState() {
+        return transactionService.getAmtByState();
+    }
+
+    @GetMapping("/amtbycity")
+    public List<CityAmt> getAmtByCity(){
+        return transactionService.getAmtByCity();
+    }
+
+
     @GetMapping("/amtbygender")
     public List<GenderAmt> getAmtByGender(){
         return transactionService.getAmtByGender();
+    }
+
+    @GetMapping("/amtbypopulation")
+    public List<PopulationAmt> getAmtByPopulation(){
+        return transactionService.getAmtByPopulation();
+    }
+    @GetMapping("/amtByCategory")
+    public List<CategoryAmt> getAmtByCategory(){
+        return transactionService.getAmtByCategory();
     }
 }
