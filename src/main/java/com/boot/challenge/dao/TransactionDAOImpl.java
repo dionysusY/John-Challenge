@@ -1,17 +1,21 @@
 package com.boot.challenge.dao;
 
+import com.boot.challenge.dto.MerchantAmt;
 import com.boot.challenge.entity.Transactions;
 import com.mongodb.client.result.UpdateResult;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.mongodb.core.MongoTemplate;
+import org.springframework.data.mongodb.core.aggregation.*;
 import org.springframework.data.mongodb.core.query.Criteria;
 import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.data.mongodb.core.query.Update;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
+
+import static org.springframework.data.mongodb.core.aggregation.Aggregation.*;
 
 /**
  * @ccc
@@ -85,5 +89,16 @@ public class TransactionDAOImpl implements TransactionDAO {
         UpdateResult updateResult = mongoTemplate.updateMulti(query,update,Transactions.class);
         System.out.println(updateResult);
         return true;
+    }
+
+    public List<MerchantAmt> findAmtByMerchant(){
+        MatchOperation allMerchants = match(new Criteria("merchant").exists(true));
+        GroupOperation groupByCountrySumSales = group("merchant").sum("amt").as("total_amt");
+        SortOperation sortBySalesDesc = sort(Sort.by(Sort.Direction.DESC,"total_amt"));
+        ProjectionOperation includes = project("total_amt").and("merchant").previousOperation();
+        Aggregation aggregation = newAggregation(allMerchants, groupByCountrySumSales,sortBySalesDesc, limit(20), includes);
+        AggregationResults<MerchantAmt> groupResults = mongoTemplate.aggregate(aggregation, "transactions", MerchantAmt.class);
+        List<MerchantAmt> result = groupResults.getMappedResults();
+        return result;
     }
 }
