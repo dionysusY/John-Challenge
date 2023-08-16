@@ -100,21 +100,21 @@ public class TransactionService {
         return transactionDAO.findTransactionsByAmount(sort,pageNo,size);
     }
 
-    public PageData<Transactions> getTransactionsByGroup(int group, int pageNum, int size) {
+    public PageData<Transactions> getTransactionsByGroup(int group, int pageNo, int size) {
         List<Transactions> transactionsList = transactionDAO.findTransactionsByGroup(group);
         PageData<Transactions> result = new PageData<>();
-        if (pageNum <= 0){
-            pageNum = 1;
+        if (pageNo <= 0){
+            pageNo = 1;
         }
         if (size <= 0) {
             size = 10;
         }
-        result.setCurrent(pageNum);
+        result.setCurrent(pageNo);
         result.setSize(size);
         result.setTotal(transactionsList.size());
 
-        pageNum -= 1;
-        Pageable pageable = PageRequest.of(pageNum, size);
+        pageNo -= 1;
+        Pageable pageable = PageRequest.of(pageNo, size);
         int start = pageable.getPageNumber() * pageable.getPageSize();
         int end = Math.min(start + pageable.getPageSize(), transactionsList.size());
         if (start > end){
