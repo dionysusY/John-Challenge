@@ -2,6 +2,7 @@ package com.boot.challenge.dao;
 
 import com.boot.challenge.dto.CityAmt;
 import com.boot.challenge.dto.GenderAmt;
+import com.boot.challenge.dto.CategoryAmt;
 import com.boot.challenge.dto.MerchantAmt;
 import com.boot.challenge.dto.StateAmt;
 import com.boot.challenge.entity.Transactions;
@@ -35,5 +36,7 @@ public interface TransactionDAO {
     List<StateAmt> findAmtByState();
 
     List<CityAmt> findAmtByCity();
+
+    List<CategoryAmt> findAmtByCategory();
 
 }
