@@ -1,10 +1,9 @@
 package com.boot.challenge.service;
 
-import com.boot.challenge.dao.CustomerDAO;
 import com.boot.challenge.dao.TransactionDAO;
+import com.boot.challenge.dto.MerchantAmt;
 import com.boot.challenge.dto.PageData;
 import com.boot.challenge.dto.PageResponse;
-import com.boot.challenge.entity.Customer;
 import com.boot.challenge.entity.Transactions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -13,10 +12,7 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 /**
  * @ccc
@@ -100,21 +96,21 @@ public class TransactionService {
         return transactionDAO.findTransactionsByAmount(sort,pageNo,size);
     }
 
-    public PageData<Transactions> getTransactionsByGroup(int group, int pageNum, int size) {
+    public PageData<Transactions> getTransactionsByGroup(int group, int pageNo, int size) {
         List<Transactions> transactionsList = transactionDAO.findTransactionsByGroup(group);
         PageData<Transactions> result = new PageData<>();
-        if (pageNum <= 0){
-            pageNum = 1;
+        if (pageNo <= 0){
+            pageNo = 1;
         }
         if (size <= 0) {
             size = 10;
         }
-        result.setCurrent(pageNum);
+        result.setCurrent(pageNo);
         result.setSize(size);
         result.setTotal(transactionsList.size());
 
-        pageNum -= 1;
-        Pageable pageable = PageRequest.of(pageNum, size);
+        pageNo -= 1;
+        Pageable pageable = PageRequest.of(pageNo, size);
         int start = pageable.getPageNumber() * pageable.getPageSize();
         int end = Math.min(start + pageable.getPageSize(), transactionsList.size());
         if (start > end){
@@ -208,6 +204,10 @@ public class TransactionService {
             result.setRecords(page.getContent());
         }
         return result;
+    }
+
+    public List<MerchantAmt> getAmtByMerchant(){
+        return transactionDAO.findAmtByMerchant();
     }
 
 }
