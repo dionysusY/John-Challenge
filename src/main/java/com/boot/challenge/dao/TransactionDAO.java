@@ -1,5 +1,6 @@
 package com.boot.challenge.dao;
 
+import com.boot.challenge.dto.GenderAmt;
 import com.boot.challenge.dto.MerchantAmt;
 import com.boot.challenge.entity.Transactions;
 
@@ -27,5 +28,6 @@ public interface TransactionDAO {
     boolean updateTransactionValidByCustomerId(long customer_id,int valid);
 
     List<MerchantAmt> findAmtByMerchant();
+    List<GenderAmt> findAmtByGender();
 
 }

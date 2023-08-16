@@ -1,6 +1,7 @@
 package com.boot.challenge.controller;
 
 import com.boot.challenge.dao.TransactionDAO;
+import com.boot.challenge.dto.GenderAmt;
 import com.boot.challenge.dto.MerchantAmt;
 import com.boot.challenge.service.TransactionService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,4 +24,8 @@ public class StatisticsController {
         return transactionService.getAmtByMerchant();
     }
 
+    @GetMapping("/amtbygender")
+    public List<GenderAmt> getAmtByGender(){
+        return transactionService.getAmtByGender();
+    }
 }

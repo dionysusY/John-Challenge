@@ -1,6 +1,7 @@
 package com.boot.challenge.service;
 
 import com.boot.challenge.dao.TransactionDAO;
+import com.boot.challenge.dto.GenderAmt;
 import com.boot.challenge.dto.MerchantAmt;
 import com.boot.challenge.dto.PageData;
 import com.boot.challenge.dto.PageResponse;
@@ -208,6 +209,10 @@ public class TransactionService {
 
     public List<MerchantAmt> getAmtByMerchant(){
         return transactionDAO.findAmtByMerchant();
+    }
+
+    public List<GenderAmt> getAmtByGender(){
+        return transactionDAO.findAmtByGender();
     }
 
 }
