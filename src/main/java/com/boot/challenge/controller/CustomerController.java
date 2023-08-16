@@ -49,4 +49,9 @@ public class CustomerController {
         boolean flag = customerService.deleteCustomer(first,last);
         return flag;
     }
+
+    @GetMapping("/{id}")
+    public Customer getCustomerById(@PathVariable long id){
+        return customerService.findCustomerById(id);
+    }
 }

@@ -2,8 +2,10 @@ package com.boot.challenge.dao;
 
 import com.boot.challenge.dto.CityAmt;
 import com.boot.challenge.dto.GenderAmt;
+import com.boot.challenge.dto.CategoryAmt;
 import com.boot.challenge.dto.MerchantAmt;
 import com.boot.challenge.dto.StateAmt;
+import com.boot.challenge.dto.*;
 import com.boot.challenge.entity.Transactions;
 import com.mongodb.client.result.UpdateResult;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -140,4 +142,32 @@ public class TransactionDAOImpl implements TransactionDAO {
         List<GenderAmt> result = groupResults.getMappedResults();
         return result;
     }
+
+    @Override
+    public List<PopulationAmt> findAmtByPopulation() {
+        MatchOperation allMerchants = match(new Criteria("city_population").exists(true));
+        GroupOperation groupByPopulationSumAmt = group("city_population").sum("amt").as("total_amt");
+        SortOperation sortBySalesDesc = sort(Sort.by(Sort.Direction.DESC,"total_amt"));
+        ProjectionOperation includes = project("total_amt").and("city_population").previousOperation();
+        Aggregation aggregation = newAggregation(allMerchants, groupByPopulationSumAmt, sortBySalesDesc, includes);
+        AggregationResults<PopulationAmt> groupResults = mongoTemplate.aggregate(aggregation, "transactions", PopulationAmt.class);
+        List<PopulationAmt> result = groupResults.getMappedResults();
+        return result;
+    }
+
+
+    public List<CategoryAmt> findAmtByCategory(){
+
+
+        MatchOperation allCategory = match(new Criteria("category").exists(true));
+        GroupOperation groupByCategorySumSales = group("category").sum("amt").as("total_amt");
+        SortOperation sortBySalesDesc = sort(Sort.by(Sort.Direction.DESC,"total_amt"));
+        ProjectionOperation includes = project("total_amt").and("category").previousOperation();
+        Aggregation aggregation = newAggregation(allCategory, groupByCategorySumSales,sortBySalesDesc, includes);
+        AggregationResults<CategoryAmt> groupResults = mongoTemplate.aggregate(aggregation, "transactions", CategoryAmt.class);
+        List<CategoryAmt> result = groupResults.getMappedResults();
+        return result;
+    }
+
+
 }
