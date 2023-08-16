@@ -224,6 +224,9 @@ public class TransactionService {
         return transactionDAO.findAmtByGender();
     }
 
+    public List<PopulationAmt> getAmtByPopulation(){
+        return transactionDAO.findAmtByPopulation();
+    }
     public List<CategoryAmt> getAmtByCategory(){
         return transactionDAO.findAmtByCategory();
     }

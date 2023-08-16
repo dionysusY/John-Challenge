@@ -5,6 +5,7 @@ import com.boot.challenge.dto.GenderAmt;
 import com.boot.challenge.dto.CategoryAmt;
 import com.boot.challenge.dto.MerchantAmt;
 import com.boot.challenge.dto.StateAmt;
+import com.boot.challenge.dto.*;
 import com.boot.challenge.entity.Transactions;
 
 import java.util.List;
@@ -32,6 +33,8 @@ public interface TransactionDAO {
 
     List<MerchantAmt> findAmtByMerchant();
     List<GenderAmt> findAmtByGender();
+
+    List<PopulationAmt> findAmtByPopulation();
 
     List<StateAmt> findAmtByState();
 
