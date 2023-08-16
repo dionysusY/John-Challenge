@@ -16,6 +16,7 @@ import java.util.Map;
  * @date 2023/8/10 - 0:06
  */
 @RestController
+@CrossOrigin
 @RequestMapping("/customer")
 public class CustomerController {
     @Autowired
