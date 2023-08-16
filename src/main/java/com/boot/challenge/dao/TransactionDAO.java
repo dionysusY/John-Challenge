@@ -1,5 +1,6 @@
 package com.boot.challenge.dao;
 
+import com.boot.challenge.dto.MerchantAmt;
 import com.boot.challenge.entity.Transactions;
 
 import java.util.List;
@@ -24,5 +25,7 @@ public interface TransactionDAO {
     List<Transactions> findTransactionsByGroup(int group);
 
     boolean updateTransactionValidByCustomerId(long customer_id,int valid);
+
+    List<MerchantAmt> findAmtByMerchant();
 
 }

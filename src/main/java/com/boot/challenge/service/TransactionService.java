@@ -1,10 +1,9 @@
 package com.boot.challenge.service;
 
-import com.boot.challenge.dao.CustomerDAO;
 import com.boot.challenge.dao.TransactionDAO;
+import com.boot.challenge.dto.MerchantAmt;
 import com.boot.challenge.dto.PageData;
 import com.boot.challenge.dto.PageResponse;
-import com.boot.challenge.entity.Customer;
 import com.boot.challenge.entity.Transactions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -13,10 +12,7 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 /**
  * @ccc
@@ -208,6 +204,10 @@ public class TransactionService {
             result.setRecords(page.getContent());
         }
         return result;
+    }
+
+    public List<MerchantAmt> getAmtByMerchant(){
+        return transactionDAO.findAmtByMerchant();
     }
 
 }
