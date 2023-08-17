@@ -1,6 +1,7 @@
 package com.boot.challenge;
 
 import com.boot.challenge.dao.TransactionDAO;
+import com.boot.challenge.dto.GenderAmt;
 import com.boot.challenge.entity.Transactions;
 import com.boot.challenge.service.TransactionService;
 import org.junit.jupiter.api.BeforeEach;
@@ -25,6 +26,8 @@ public class TransactionSpec {
 
     List<Transactions> collection;
     Transactions trans1,trans2,trans3;
+    List<GenderAmt> genderAmtList;
+
 
     @BeforeEach
     public void befEach(){
@@ -43,6 +46,8 @@ public class TransactionSpec {
                 74720, "Abbotb-Rogahn", "entertainment", "Felicia", "Thomas",
                 "M", "Seismic interpreter","27/05/1993",1);
         collection = Arrays.asList(trans1,trans2,trans3);
+
+        genderAmtList = Arrays.asList(new GenderAmt("F",40.11),new GenderAmt("M",80.22));
     }
     @Test
     public void getTransByGenderSpec() {
@@ -50,5 +55,12 @@ public class TransactionSpec {
         List<Transactions> returnValue = service.getTransactionsByGender("M");
         assertEquals(Arrays.asList(trans2,trans3),returnValue);
 
+    }
+
+    @Test
+    public void findAmtByGenderSpec() {
+        when(transactionDAO.findAmtByGender()).thenReturn(genderAmtList);
+        List<GenderAmt> returnValue = service.getAmtByGender();
+        assertEquals(genderAmtList,returnValue);
     }
 }
