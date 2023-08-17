@@ -64,4 +64,11 @@ public class TransactionController {
                                                      @RequestParam(defaultValue = "10") int size){
         return transactionService.getTransactionsByGroup(group, pageNo, size);
     }
+
+    @GetMapping("/customerid/{id}")
+    public PageData<Transactions> getTransactionByCustomerId(@PathVariable long id,
+                                                             @RequestParam(defaultValue = "1") int pageNo,
+                                                             @RequestParam(defaultValue = "10") int pageSize){
+        return transactionService.getTransactionsByCustomerIdPagination(id, pageNo, pageSize);
+    }
 }

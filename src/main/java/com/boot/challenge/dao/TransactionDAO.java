@@ -42,4 +42,6 @@ public interface TransactionDAO {
 
     List<CategoryAmt> findAmtByCategory();
 
+    
+    List<Transactions> findTransactionsByCumtomerId(long customerId);
 }
