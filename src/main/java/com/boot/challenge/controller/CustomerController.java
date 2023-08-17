@@ -1,5 +1,6 @@
 package com.boot.challenge.controller;
 
+import com.boot.challenge.annotation.LogAnnotation;
 import com.boot.challenge.dto.PageData;
 import com.boot.challenge.entity.Customer;
 import com.boot.challenge.entity.Transactions;
@@ -22,18 +23,21 @@ public class CustomerController {
     @Autowired
     private CustomerService customerService;
 
+    @LogAnnotation(module = "Customer", operator = "getAllCustomer")
     @GetMapping("/")
     public PageData<Customer> getAllCustomer(@RequestParam(required = false, defaultValue = "0") int pageno,
                                              @RequestParam(required = false, defaultValue = "10")int size){
         return customerService.getCustomerPagination(pageno, size);
     }
 
+    @LogAnnotation(module = "Customer", operator = "getCustomerByGender")
     @GetMapping("/gender/{gender}")
     public List<Customer> getCustomerByGender(@PathVariable String gender,@RequestParam(required = false,defaultValue = "0") int pageno,
                                               @RequestParam(required = false,defaultValue = "10") int size) {
         return customerService.getCustomerGenderByPagination(gender,pageno,size).getCustomers();
     }
 
+    @LogAnnotation(module = "Customer", operator = "addCustomer")
     @PostMapping("/addcustomer")
     public Customer addCustomer(@RequestParam("first") String first,
                                 @RequestParam("last") String last,
@@ -43,6 +47,7 @@ public class CustomerController {
         return addCustomer;
     }
 
+    @LogAnnotation(module = "Customer", operator = "deleteCustomer")
     @DeleteMapping("/deletecustomer")
     public boolean deleteCustomer(@RequestParam("first") String first,
                                   @RequestParam("last") String last){
@@ -50,6 +55,7 @@ public class CustomerController {
         return flag;
     }
 
+    @LogAnnotation(module = "Customer", operator = "getCustomerById")
     @GetMapping("/{id}")
     public Customer getCustomerById(@PathVariable long id){
         return customerService.findCustomerById(id);
