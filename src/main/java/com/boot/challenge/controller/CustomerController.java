@@ -6,6 +6,9 @@ import com.boot.challenge.entity.Transactions;
 import com.boot.challenge.service.CustomerService;
 import com.boot.challenge.service.TransactionService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.HttpStatusCode;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -35,12 +38,18 @@ public class CustomerController {
     }
 
     @PostMapping("/addcustomer")
-    public Customer addCustomer(@RequestParam("first") String first,
-                                @RequestParam("last") String last,
-                                @RequestParam("gender") String gender,
-                                @RequestParam("job") String job){
-        Customer addCustomer = customerService.addCustomer(first, last, gender, job);
-        return addCustomer;
+    public ResponseEntity<Customer> addCustomer(@RequestParam("first") String first,
+                                                @RequestParam("last") String last,
+                                                @RequestParam("gender") String gender,
+                                                @RequestParam("job") String job,
+                                                @RequestParam("dob") String dob){
+        try {
+            Customer addCustomer = customerService.addCustomer(first, last, gender, job, dob);
+            return new ResponseEntity<Customer>(addCustomer, HttpStatus.OK);
+        }
+        catch (java.text.ParseException e){
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        }
     }
 
     @DeleteMapping("/deletecustomer")
