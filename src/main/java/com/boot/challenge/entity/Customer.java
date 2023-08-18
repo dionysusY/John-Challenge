@@ -33,12 +33,13 @@ public class Customer implements Serializable {
         this.valid = valid;
     }
 
-    public Customer(String first, String last, String gender, String job, Date dob) {
+    public Customer(String first, String last, String gender, String job, Date dob, int valid) {
         this.first = first;
         this.last = last;
         this.gender = gender;
         this.job = job;
         this.dob = dob;
+        this.valid = valid;
     }
 
     public Customer() {

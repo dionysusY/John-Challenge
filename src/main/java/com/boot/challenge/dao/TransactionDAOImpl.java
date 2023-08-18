@@ -169,5 +169,12 @@ public class TransactionDAOImpl implements TransactionDAO {
         return result;
     }
 
+    @Override
+    public List<Transactions> findTransactionsByCumtomerId(long customerId){
+        Query query = new Query();
+        query.addCriteria(Criteria.where("customer_id").is(customerId));
+        return mongoTemplate.find(query, Transactions.class);
+    }
+
 
 }

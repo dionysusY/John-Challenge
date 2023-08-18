@@ -64,6 +64,8 @@ public class CustomerDAOImpl implements CustomerDAO {
     }
 
     public List<Customer> findAllCustomer(){
-        return mongoTemplate.findAll(Customer.class);
+        Query query = new Query();
+        query.addCriteria(Criteria.where("valid").is(1));
+        return mongoTemplate.find(query, Customer.class);
     }
 }

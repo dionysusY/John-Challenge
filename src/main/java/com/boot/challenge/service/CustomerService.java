@@ -19,6 +19,7 @@ import org.springframework.stereotype.Service;
 import java.time.LocalDateTime;
 import java.util.Date;
 import java.util.List;
+import java.text.SimpleDateFormat;
 
 /**
  * @ccc
@@ -44,8 +45,10 @@ public class CustomerService {
         return customerDAO.findCustomersByGender(gender);
     }
 
-    public Customer addCustomer(String first, String last, String gender, String job){
-        Customer newCustomer = new Customer(first, last, gender, job, new Date());
+    public Customer addCustomer(String first, String last, String gender, String job, String date) throws java.text.ParseException{
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd");
+        Date dob = dateFormat.parse(date);
+        Customer newCustomer = new Customer(first, last, gender, job, dob, 1);
         newCustomer.setCustomerID(databaseSequenceRepository.generateSequence(Customer.generateSequenceName));
         Customer addCustomer = customerDAO.addCustomer(newCustomer);
         return addCustomer;
